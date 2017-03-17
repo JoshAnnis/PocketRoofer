@@ -1,0 +1,52 @@
+﻿@model PocketRoofer.Models.RegisteredUserViewModel
+@{
+    ViewBag.Title = "Address Entry";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Geocoding service</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+</head>
+<body>
+    <div class="jumbotron">
+        <h2>PocketRoofer</h2>
+        <p class="lead"> Enter address below</p>
+    </div>
+    <div id="floating-panel">
+        <input id="address" type="text" value="">
+        <input id="submit" type="button" value="Find Address">
+    </div>
+    <div id="map" style="width: 66%; height: 380px;"></div>
+    <script>
+        function initMap()
+        {
+            var map = new google.maps.Map(document.getElementById('map'),
+            {
+            zoom: 20,
+            center: { lat: 44.501342, lng: -88.062222 },
+            mapTypeId: google.maps.MapTypeId.SATELLITE
+            });
+            var geocoder = new google.maps.Geocoder();
+            document.getElementById('submit').addEventListener('click', function() {geocodeAddress(geocoder, map);});
+        }
+
+        function geocodeAddress(geocoder, resultsMap)
+        {
+            var address = document.getElementById('address').value;
+            geocoder.geocode({ 'address': address }, function (results, status)
+            {
+            if (status === 'OK')
+            {
+                resultsMap.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({map: resultsMap,position: results[0].geometry.location});
+            } else {alert('Geocode was not successful for the following reason: ' + status);}});
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnTzpohV4nNuiv-p8T6--y51y4tK52rc&callback=initMap">
+    </script>
+</body>
+</html>
