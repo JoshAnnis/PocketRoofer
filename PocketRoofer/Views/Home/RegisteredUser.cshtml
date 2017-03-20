@@ -1,52 +1,130 @@
 ﻿@model PocketRoofer.Models.RegisteredUserViewModel
 @{
-    ViewBag.Title = "Address Entry";
+	ViewBag.Title = "Address Entry";
 }
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Geocoding service</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
+	<title>Geocoding service</title>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
 </head>
 <body>
-    <div class="jumbotron">
-        <h2>PocketRoofer</h2>
-        <p class="lead"> Enter address below</p>
-    </div>
-    <div id="floating-panel">
-        <input id="address" type="text" value="">
-        <input id="submit" type="button" value="Find Address">
-    </div>
-    <div id="map" style="width: 66%; height: 380px;"></div>
-    <script>
-        function initMap()
-        {
-            var map = new google.maps.Map(document.getElementById('map'),
-            {
-            zoom: 20,
-            center: { lat: 44.501342, lng: -88.062222 },
-            mapTypeId: google.maps.MapTypeId.SATELLITE
-            });
-            var geocoder = new google.maps.Geocoder();
-            document.getElementById('submit').addEventListener('click', function() {geocodeAddress(geocoder, map);});
-        }
+	<div class="jumbotron">
+		<h2>PocketRoofer</h2>
+		<p class="lead"> Enter address below</p>
+	</div>
+	@*<tbody>
+		<tr>
+			<td width="100%" bgcolor="lightgrey">
 
-        function geocodeAddress(geocoder, resultsMap)
-        {
-            var address = document.getElementById('address').value;
-            geocoder.geocode({ 'address': address }, function (results, status)
-            {
-            if (status === 'OK')
-            {
-                resultsMap.setCenter(results[0].geometry.location);
-                var marker = new google.maps.Marker({map: resultsMap,position: results[0].geometry.location});
-            } else {alert('Geocode was not successful for the following reason: ' + status);}});
-        }
-    </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnTzpohV4nNuiv-p8T6--y51y4tK52rc&callback=initMap">
+				<table width="100%" bgcolor="white">
+
+					<tbody>
+						<tr>
+							<td>
+								<h1>Area calculator: Find the area of a shape you draw on a google map</h1>
+								Enter an address or zoom into the map then click on the starting point of your shape. Continue to click along
+								the outside edge of the shape you want to calculate the area of. As you add points the area will be updated below and converted into acres, square feet, meter, kilometers and miles.
+								It will also show the perimeter of the shape.
+								This tool is useful for finding the approximate acreage or a tract of land, the square footage of a roof, or any other instance where you need
+								a good estimate of the area of something. If you would like this tool on your website use our <a href="embed_area_calculator.php">area calculator embed tool</a>
+								or <a href="contact_us.php">Contact us</a> for details. To return to this area map use the link provided at the bottom of the page.
+								<br><br>
+								<div id="secret_ad"></div>
+							</td>
+						</tr>
+
+
+						<tr>
+							<td align="center">
+
+
+								<div align="left">
+									Address: <input type="text" size="30" id="addressInput" name="address">
+									<button onclick="showAddress(document.getElementById('addressInput').value);">Go!</button>
+									<a class="link_button" href="Javascript:void(0);" onclick="zoomToPoly();">Zoom to Fit</a>
+									<a class="link_button" href="Javascript:void(0);" onclick="removeLastPoint();">Clear Last Point</a>
+									<a class="link_button" href="Javascript:void(0);" onclick="clearMap();">Clear Route</a>
+									<a class="link_button" href="Javascript:void(0);" onclick="enlargeMap();">Enlarge Map</a>
+								</div>
+								<div id="status" style="height: 20px; width:800px">
+									<b>Area</b> 0 meters<sup>2</sup>, 0 feet<sup>2</sup> 0 acres 0 miles<sup>2</sup> 0 km<sup>2</sup>
+									<b>Perimeter</b> 0 meters, 0 feet 0 miles 0 km
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<table width="100%">
+									<tbody>
+										<tr>
+											<td>*@
+
+												<!--<div style='float:right;position:relative;'><a href='Javascript:void(0);' onclick='goToEmbed();'>Embed this location in your website</div>-->
+											@*</td>
+										</tr>
+										<tr>
+											<td colspan="2">
+												<h3>Acreage Calculator - Measure the area of a plot of land</h3>
+												<p>The easiest way to measure the acreage of a plot of land is to start by entering an address that is associated with the plot of land you need the area of. In rural areas where an address may not be available, you can enter the cross street or even the GPS coordinate of a point on the land. For GPS coordinates be sure to enter the latitude followed a comma then the longitude ex. (41.87811, -87.629798). In any case this will place a marker that you can use as a reference point to draw the area on the map. Once you are finished drawing the area calculator will display the area of the shape above the map.</p>
+
+												<h3>How to use the google maps area calculator tool to measure a roof</h3>
+												<p>Special precautions must be taken when measuring the area of a roof. The images that appear on google maps are often at a slight angle, which combined with the angle of a roof can cause errors. For this reason it is best to outline the roof at points which are all at the same elevation. On a simple house for instance you would only click on the corners of the roof and not on any points along the peak as that would cause an error. After measuring the area of the footprint you can estimate the actual roof area based on the angle of the roof. Similarly if you using the area calculator tool to measure a roof with multiple levels, you should do the individual section separately.</p>
+
+												<p>The google maps area calculator is not 100% accurate. Do not rely on this tool as your only resource in making important decisions.</p>
+
+												<h3>Measure perimeter</h3>
+												<p>We now also include the perimeter of the shape that you draw along with the area. This can help you to measure the the edge of a lawn, or the length of a fence</p>
+
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+	</tbody>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;libraries=geometry&amp;signed_in=false&amp;callback=scriptLoaded"></script>*@
+
+	<div id="floating-panel">
+			<input id="address" type="text" value="">
+			<input id="submit" type="button" value="Find Address">
+		</div>
+	<div id="map" style="width: 66%; height: 380px;"></div>
+	<script>
+		function initMap() {
+			var map = new google.maps.Map(document.getElementById('map'),
+			{
+				zoom: 20,
+				center: { lat: 42.991315, lng: -87.883705 },
+				mapTypeId: google.maps.MapTypeId.SATELLITE
+			});
+			//var drawingManager = new google.maps.drawing.DrawingManager();
+			//drawingManager.setMap(map);
+			var geocoder = new google.maps.Geocoder();
+			document.getElementById('submit').addEventListener('click', function () { geocodeAddress(geocoder, map); });
+		}
+
+		function geocodeAddress(geocoder, resultsMap) {
+			var address = document.getElementById('address').value;
+			geocoder.geocode({ 'address': address }, function (results, status) {
+				if (status === 'OK') {
+					resultsMap.setCenter(results[0].geometry.location);
+					var marker = new google.maps.Marker({ map: resultsMap, position: results[0].geometry.location });
+				} else { alert('Geocode was not successful for the following reason: ' + status); }
+			});
+		}
+	</script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnTzpohV4nNuiv-p8T6--y51y4tK52rc&callback=initMap">
+	</script>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnTzpohV4nNuiv-p8T6--y51y4tK52rc&libraries=drawing">
     </script>
 </body>
 </html>
