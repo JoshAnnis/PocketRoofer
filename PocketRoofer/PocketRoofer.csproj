@@ -189,6 +189,10 @@
     <Compile Include="Migrations\201703171603321_ImplementedGeocodingMapsAPI.Designer.cs">
       <DependentUpon>201703171603321_ImplementedGeocodingMapsAPI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703212249315_AddedDrawManager.cs" />
+    <Compile Include="Migrations\201703212249315_AddedDrawManager.Designer.cs">
+      <DependentUpon>201703212249315_AddedDrawManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -277,6 +281,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703171603321_ImplementedGeocodingMapsAPI.resx">
       <DependentUpon>201703171603321_ImplementedGeocodingMapsAPI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703212249315_AddedDrawManager.resx">
+      <DependentUpon>201703212249315_AddedDrawManager.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
