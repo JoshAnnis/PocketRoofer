@@ -28,7 +28,7 @@ namespace PocketRoofer.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
-            return View();
+            return View("GenerateEstimate");
         }
 
         public ActionResult Contact()

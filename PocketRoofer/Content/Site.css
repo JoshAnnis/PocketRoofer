@@ -2,7 +2,10 @@
     padding-top: 50px;
     padding-bottom: 20px;
 }
-
+div#main {
+    margin:0 auto;
+    /*width: 100%;*/
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;

@@ -9,19 +9,84 @@
 	<title>Geocoding service</title>
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 	<meta charset="utf-8">
+	<style>
+		 /* Always set the map height explicitly to define the size of the div
+		element that contains the map. */
+		 #map {
+			 height: 100%;
+		 }
+		 /* Optional: Makes the sample page fill the window. */
+		 html, body {
+			 height: 100%;
+			 margin: 5px;
+			 padding: 0;
+		 }
+
+		 #address {
+			 width: 40%;
+		 }
+
+		 #form {
+			 height: 425px;
+			 width: 650px;
+		 }
+
+		 #span-area {
+		 }
+
+		 #length-area {
+		 }
+
+		 .text-area {
+			 margin-bottom: 2px;
+		 }
+
+		 .calc-text-area {
+			 background-color: lightgrey;
+			 width: 10%;
+			 margin-bottom: 2px;
+		 }
+
+		 #clear-points {
+			 margin-top: 2px;
+		 }
+	</style>
 </head>
 <body>
 	<div class="jumbotron">
-		<h2>PocketRoofer</h2>
-		<p class="lead"> Enter address below</p>
+		<div class="row">
+			<h2>PocketRoofer</h2>
+			<p class="lead"> Enter address below</p>
+		</div>
+
 	</div>
-	<div id="floating-panel">
+	<div id="form">
 		<input id="address" type="text" value="">
 		<input id="submit" type="button" value="Find Address">
+		Length (ft): <input id="span-length-ft" class="calc-text-area" type="text" readonly>
+		Area (ft&sup2;): <input id="span-area-ft" class="calc-text-area" type="text" readonly>
+		Roof Pitch:
+		<select id="roof-pitch">
+			<option value="0">Flat</option>
+			<option value="2">2/12</option>
+			<option value="4" selected>4/12</option>
+			<option value="6">6/12</option>
+			<option value="8">8/12</option>
+			<option value="10">10/12</option>
+			<option value="12">12/12</option>
+			<option value="14">14/12</option>
+			<option value="16">16/12</option>
+		</select>
+		Adjusted Area (ft&sup2;): <input id="span-area-adjusted" class="calc-text-area" type="text" readonly>
+		<div id="map"></div>
+		<input id="clear-points" class="buttons" type="button" value="Reset Measure Points" onClick="measureReset();">
 	</div>
-	<div id="map" style="width: 80%; height: 380px;"></div>
-	<script defer>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnTzpohV4nNuiv-p8T6--y51y4tK52rc&libraries=geometry"></script>
+	<div id="map" style="width: 90%; height: 380px;"></div>
+	<script>
 		var map;
+		var geocoder;
+
 		var measure = {
 			mvcLine: new google.maps.MVCArray(),
 			mvcPolygon: new google.maps.MVCArray(),
@@ -29,16 +94,18 @@
 			line: null,
 			polygon: null
 		};
-	</script>
-	  <script>
+
 		function initMap() {
 			var map = new google.maps.Map(document.getElementById('map'),
 			{
 				zoom: 20,
 				center: { lat: 42.991315, lng: -87.883705 },
 				mapTypeId: google.maps.MapTypeId.SATELLITE,
-				draggableCursor: "crosshair" // Make the map cursor a crosshair so the user thinks they should click something
+				draggableCursor: "crosshair"
 			});
+
+			var infoWindow = new google.maps.InfoWindow({map: map});
+
 			google.maps.event.addListener(map, "click", function (evt) {
 				// When the map is clicked, pass the LatLng obect to the measureAdd function
 				measureAdd(evt.latLng);
@@ -53,7 +120,7 @@
 			geocoder.geocode({ 'address': address }, function (results, status) {
 				if (status === 'OK') {
 					resultsMap.setCenter(results[0].geometry.location);
-					var marker = new google.maps.Marker({ map: resultsMap, position: results[0].geometry.location });
+					 //var marker = new google.maps.Marker({ map: resultsMap, position: results[0].geometry.location });
 				} else { alert('Geocode was not successful for the following reason: ' + status); }
 			});
 		}
@@ -67,7 +134,7 @@
 				draggable: true,
 				raiseOnDrag: false,
 				title: "Drag me to change shape",
-				icon: new google.maps.MarkerImage("/images/demos/markers/measure-vertex.png", new google.maps.Size(9, 9), new google.maps.Point(0, 0), new google.maps.Point(5, 5))
+				icon: new google.maps.MarkerImage("images/measure-vertex.png", new google.maps.Size(9, 9), new google.maps.Point(0, 0), new google.maps.Point(5, 5))
 			});
 
 			// Add this LatLng to our line and polygon MVCArrays
@@ -85,12 +152,12 @@
 
 			// When the user mouses over the measure vertex markers, change shape and color to make it obvious they can be moved
 			google.maps.event.addListener(marker, "mouseover", function () {
-				marker.setIcon(new google.maps.MarkerImage("/images/demos/markers/measure-vertex-hover.png", new google.maps.Size(15, 15), new google.maps.Point(0, 0), new google.maps.Point(8, 8)));
+				marker.setIcon(new google.maps.MarkerImage("images/measure-vertex-hover.png", new google.maps.Size(15, 15), new google.maps.Point(0, 0), new google.maps.Point(8, 8)));
 			});
 
 			// Change back to the default marker when the user mouses out
 			google.maps.event.addListener(marker, "mouseout", function () {
-				marker.setIcon(new google.maps.MarkerImage("/images/demos/markers/measure-vertex.png", new google.maps.Size(9, 9), new google.maps.Point(0, 0), new google.maps.Point(5, 5)));
+				marker.setIcon(new google.maps.MarkerImage("images/measure-vertex.png", new google.maps.Size(9, 9), new google.maps.Point(0, 0), new google.maps.Point(5, 5)));
 			});
 
 			// When the measure vertex markers are dragged, update the geometry of the line and polygon by resetting the
@@ -122,7 +189,6 @@
 						strokeWeight: 3,
 						path: measure.mvcLine
 					});
-
 				}
 
 				// If there is more than two vertexes for a polygon
@@ -140,31 +206,34 @@
 							paths: measure.mvcPolygon
 						});
 					}
-
 				}
-
 			}
-
 			// If there's more than one vertex, measure length, area.
 			if (measure.mvcLine.getLength() > 1) {
 				measureCalc();
 			}
-
 		}
 
 		function measureCalc() {
 
 			// Use the Google Maps geometry library to measure the length of the line
 			var length = google.maps.geometry.spherical.computeLength(measure.line.getPath());
-			jQuery("#span-length").text(length.toFixed(1))
-
+			jQuery("span-length").text(length.toFixed(1));
+			document.getElementById("span-length-ft").value = convertToFeet(length).toFixed(1)
 			// If we have a polygon (>2 vertexes in the mvcPolygon MVCArray)
 			if (measure.mvcPolygon.getLength() > 2) {
 				// Use the Google Maps geometry library to measure the area of the polygon
 				var area = google.maps.geometry.spherical.computeArea(measure.polygon.getPath());
 				jQuery("#span-area").text(area.toFixed(1));
-			}
+				var squareFeetArea = convertToSquareFeet(area)
+				jQuery("span-area-ft").text(squareFeetArea.toFixed(1));
 
+				// calc adjusted square footage based on pitch
+				var e = document.getElementById("roof-pitch");
+				var pitch = e.options[e.selectedIndex].value;
+
+				document.getElementById("span-area-adjusted").value = estimateRoofArea(squareFeetArea,pitch).toFixed(1)
+			}
 		}
 
 		function measureReset() {
@@ -189,11 +258,55 @@
 			});
 			measure.mvcMarkers.clear();
 
-			jQuery("#span-length,#span-area").text(0);
-
+			document.getElementById("span-area").value = null;
+			document.getElementById("span-length").value = null;
+			document.getElementById("span-area-ft").value = null;
+			document.getElementById("span-length-ft").value = null;
+			document.getElementById("span-area-adjusted").value = null;
 		}
-	</script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnTzpohV4nNuiv-p8T6--y51y4tK52rc&libraries=drawing,geometry&callback=initMap"></script>
+		// function to convert meters to feet
+		function convertToFeet(length) {
+			return length * 3.2804;
+		}
+		// function to convert square meters to square feet
+		function convertToSquareFeet(area) {
+			return area * 10.7639;
+		}
+				// Calc true area based on roof pitch selected
+		// calulation from http://homeguides.sfgate.com/calculate-roof-area-using-building-square-footage-pitch-roof-60663.html
+		function estimateRoofArea(area, pitch) {
 
+			var value;
+			//step 1: Divide your roof pitch by 12.
+			value = pitch / 12;
+			//step 2: Square the result of Step 1
+			value = Math.pow(value,2);
+			// step 3: Add 1, then take the square root
+			value = Math.sqrt(1+value);
+			// step 4: Multiply by the square footage of a single floor of your house
+			value = area * value;
+
+			return value;
+		}
+
+		// call the initMap once the window is loaded
+		google.maps.event.addDomListener(window, 'load', initMap);
+
+		// if enter pressed in the Address box, trigger Search button
+		document.getElementById("address")
+			.addEventListener("keyup", function(event) {
+			event.preventDefault();
+			if (event.keyCode == 13) {
+				document.getElementById("search").click();
+			}
+		});
+
+		// when pitch changes re-calc
+		document.getElementById("roof-pitch")
+			.addEventListener("change", function(event) {
+			event.preventDefault();
+			measureCalc();
+		});
+	</script>
 </body>
 </html>

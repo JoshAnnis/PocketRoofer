@@ -193,8 +193,13 @@
     <Compile Include="Migrations\201703212249315_AddedDrawManager.Designer.cs">
       <DependentUpon>201703212249315_AddedDrawManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703231440444_BeganEstimateMVC.cs" />
+    <Compile Include="Migrations\201703231440444_BeganEstimateMVC.Designer.cs">
+      <DependentUpon>201703231440444_BeganEstimateMVC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\EstimateViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -207,6 +212,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\measure-vertex-hover.png" />
+    <Content Include="images\measure-vertex.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -257,6 +264,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\RegisteredUser.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
+    <Content Include="Views\Home\GenerateEstimate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -284,6 +292,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703212249315_AddedDrawManager.resx">
       <DependentUpon>201703212249315_AddedDrawManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703231440444_BeganEstimateMVC.resx">
+      <DependentUpon>201703231440444_BeganEstimateMVC.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
