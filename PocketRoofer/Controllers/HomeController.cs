@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace PocketRoofer.Controllers
 {
+    [System.Runtime.InteropServices.Guid("D605B378-B9F1-4FC9-B46C-5AAD66C6AC9B")]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -24,22 +25,31 @@ namespace PocketRoofer.Controllers
             }
             else
             {
-                return View();
+                return View("Index");
             }
         }
-
-        public ActionResult About()
+        public ActionResult GoHome()
         {
-            ViewBag.Message = "Your application description page.";
+
+            return View("Index");
+        }
+
+        public ActionResult MakeEstimate()
+        {
+            ViewBag.Message = "Your estimation page.";
 
             return View("GenerateEstimate");
         }
 
-        public ActionResult Contact()
+        public ActionResult Email()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            var client = new SmtpClient("smtp.mailtrap.io", 2525)
+            {
+                Credentials = new NetworkCredential("e490c4bbb3aa75", "ab43f3cf77703d"),
+                EnableSsl = true
+            };
+            client.Send("from@example.com", "to@example.com", "Hello world", "Your estimate here.");
+            return View("RegisteredUser");
         }
         //[HttpPost]
         //[ValidateAntiForgeryToken]

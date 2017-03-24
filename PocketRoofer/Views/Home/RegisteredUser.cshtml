@@ -27,8 +27,6 @@
 			 width: 40%;
 		 }
 
-
-
 		 #span-area {
 		 }
 
@@ -54,17 +52,19 @@
 <body>
 	<div class="jumbotron">
 		<div class="row">
-			<h2>PocketRoofer</h2>
-			<p class="lead"> Enter address below</p>
+			<h2>PocketRoofer Address Finder</h2>
+			<p class="lead"> Enter your address to see your roof as a satilite does.</p>
 		</div>
 	</div>
 	<div id="bodyContent">
+@using (Html.BeginForm("SaveEstimate", "Estimate", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
 		<div id="form">
 			<input id="address" type="text" value="">
 			<input id="submit" type="button" value="Find Address">
 			<br/>
 			Length (ft): <input id="span-length-ft" class="calc-text-area" type="text" readonly>
-			Area (ft&sup2;): <input id="span-area-ft" class="calc-text-area" type="text" readonly>
+			Map area (ft&sup2;): <input id="span-area-ft" class="calc-text-area" type="text" readonly>
 			Roof Pitch:
 			<select id="roof-pitch">
 				<option value="0">Flat</option>
@@ -77,9 +77,13 @@
 				<option value="14">14/12</option>
 				<option value="16">16/12</option>
 			</select>
-			Adjusted Area (ft&sup2;): <input id="span-area-adjusted" class="calc-text-area" type="text" readonly>
+			Estimated Area (ft&sup2;): <input id="span-area-adjusted" class="calc-text-area" type="text" readonly><br />
 			<input id="clear-points" class="buttons" type="button" value="Reset Measure Points" onClick="measureReset();">
+			<input id="gutter" type="button" value="Save Gutter">
+			<input id="area" type="button" value="Save Area">
+			<input id="saveEstimate" type="submit" value="Save Estimate">
 		</div>
+}
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnTzpohV4nNuiv-p8T6--y51y4tK52rc&libraries=geometry"></script>
 		<div id="map" style="width: 100%; height: 420px;">
 
@@ -104,14 +108,10 @@
 				   mapTypeId: google.maps.MapTypeId.SATELLITE,
 				   draggableCursor: "crosshair"
 			   });
-
-				var infoWindow = new google.maps.InfoWindow({ map: map });
-
 				google.maps.event.addListener(map, "click", function (evt) {
 					// When the map is clicked, pass the LatLng obect to the measureAdd function
 					measureAdd(evt.latLng);
 				});
-
 				var geocoder = new google.maps.Geocoder();
 				document.getElementById('submit').addEventListener('click', function () { geocodeAddress(geocoder, map); });
 			}
@@ -274,7 +274,7 @@
 				.addEventListener("keyup", function (event) {
 					event.preventDefault();
 					if (event.keyCode == 13) {
-						document.getElementById("search").click();
+						document.getElementById("submit").click();
 					}
 				});
 			// when pitch changes re-calc
