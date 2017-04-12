@@ -34,13 +34,6 @@ namespace PocketRoofer.Controllers
             return View("Index");
         }
 
-        public ActionResult MakeEstimate()
-        {
-            ViewBag.Message = "Your estimation page.";
-
-            return View("GenerateEstimate");
-        }
-
         public ActionResult Email()
         {
             var client = new SmtpClient("smtp.mailtrap.io", 2525)

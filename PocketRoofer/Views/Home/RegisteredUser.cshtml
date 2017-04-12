@@ -60,7 +60,7 @@
 @using (Html.BeginForm("SaveEstimate", "Estimate", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
 		<div id="form">
-			<input id="address" type="text" value="">
+			<input name="address" id="address" type="text" value="">
 			<input id="submit" type="button" value="Find Address">
 			<br/>
 			Length (ft): <input id="span-length-ft" class="calc-text-area" type="text" readonly>
@@ -77,7 +77,7 @@
 				<option value="14">14/12</option>
 				<option value="16">16/12</option>
 			</select>
-			Estimated Area (ft&sup2;): <input id="span-area-adjusted" class="calc-text-area" type="text" readonly><br />
+			Estimated Area (ft&sup2;): <input name ="adjustedArea" id="span-area-adjusted" class="calc-text-area" type="text" readonly><br />
 			<input id="clear-points" class="buttons" type="button" value="Reset Measure Points" onClick="measureReset();">
 			<input id="gutter" type="button" value="Save Gutter">
 			<input id="area" type="button" value="Save Area">
@@ -187,7 +187,8 @@
 						if (!measure.polygon) {
 							// Create the polygon (google.maps.Polygon)
 							measure.polygon = new google.maps.Polygon({
-								clickable: false,
+
+							    clickable: false,
 								map: map,
 								fillOpacity: 0.25,
 								strokeOpacity: 0,
@@ -243,6 +244,15 @@
 				document.getElementById("span-length-ft").value = null;
 				document.getElementById("span-area-adjusted").value = null;
 			}
+
+			function SaveArea() {
+			    if (measure.polygon) {
+			        measure.polygon.add();
+			        document.getElementById("span-length-ft").value = null;
+
+			    }
+			}
+
 			// function to convert meters to feet
 			function convertToFeet(length) {
 				return length * 3.2804;
@@ -261,7 +271,6 @@
 				value = Math.pow(value, 2);
 				// step 3: Add 1, then take the square root
 				value = Math.sqrt(1 + value);
-				// step 4: Multiply by the square footage of a single floor of your house
 				value = area * value;
 				return value;
 			}

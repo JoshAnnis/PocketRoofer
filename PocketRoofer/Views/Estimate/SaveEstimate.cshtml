@@ -1,6 +1,7 @@
 ﻿@model PocketRoofer.Models.EstimateViewModels
+
 @{
-    ViewBag.Title = "Get An Estimate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -8,8 +9,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <link href="Site.css" rel="stylesheet">
-    <title>GenerateEstimate</title>
+    <title>SaveEstimate</title>
 </head>
 <body>
     <div class="jumbotron">
@@ -31,8 +31,12 @@
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
             </div>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.bundle, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.bundle, new { @class = "form-control" })
+            </div>
+        </div>
     </div>
-
 </body>
-
 </html>

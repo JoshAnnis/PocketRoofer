@@ -85,7 +85,6 @@ namespace PocketRoofer.Models
         [Required]
         public string Street { get; set; }
         [Required]
-
         public string City { get; set; }
         public string State { get; set; }
         public int ZipCode { get; set; }

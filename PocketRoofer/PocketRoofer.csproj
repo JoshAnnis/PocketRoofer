@@ -202,6 +202,14 @@
     <Compile Include="Migrations\201703231500491_AddedRowToGenerateEstimateBoxes.Designer.cs">
       <DependentUpon>201703231500491_AddedRowToGenerateEstimateBoxes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704101700562_AddedEstimateModelViewController.cs" />
+    <Compile Include="Migrations\201704101700562_AddedEstimateModelViewController.Designer.cs">
+      <DependentUpon>201704101700562_AddedEstimateModelViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704120110343_AddedSaveEstimate.cs" />
+    <Compile Include="Migrations\201704120110343_AddedSaveEstimate.Designer.cs">
+      <DependentUpon>201704120110343_AddedSaveEstimate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EstimateViewModels.cs" />
@@ -272,10 +280,10 @@
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Home\GenerateEstimate.cshtml" />
     <Content Include="Views\Home\Sent.cshtml" />
+    <Content Include="Views\Estimate\SaveEstimate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Estimate\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -306,6 +314,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703231500491_AddedRowToGenerateEstimateBoxes.resx">
       <DependentUpon>201703231500491_AddedRowToGenerateEstimateBoxes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704101700562_AddedEstimateModelViewController.resx">
+      <DependentUpon>201704101700562_AddedEstimateModelViewController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704120110343_AddedSaveEstimate.resx">
+      <DependentUpon>201704120110343_AddedSaveEstimate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
