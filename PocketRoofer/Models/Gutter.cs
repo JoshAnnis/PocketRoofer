@@ -14,9 +14,9 @@ namespace PocketRoofer.Models
         public int Number { get; set; }
         public int Length { get; set; }
 
-        [ForeignKey("EstimateViewModels")]
-        public int EstimateViewModelsId { get; set; }
-        public  EstimateViewModels EstimateViewModels { get; set; }
+        //[ForeignKey("EstimateViewModel")]
+        //public int EstimateViewModelId { get; set; }
+        //public  EstimateViewModel EstimateViewModel { get; set; }
 
     }
 }

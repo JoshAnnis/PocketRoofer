@@ -17,7 +17,7 @@ namespace PocketRoofer.Controllers
         {
             if (User.IsInRole("Admin"))
             {
-                return View("Admin");
+                return View("AdminIndex");
             }
             else if (User.IsInRole("User"))
             {

@@ -6,19 +6,20 @@ using System.Web;
 
 namespace PocketRoofer.Models
 {
-    public class EstimateViewModels
+    public class EstimateViewModel
     {
         [Key]
         public int Id { get; set; }
-        [Display(Name = "Address")]
+        [Display(Name = "Estimate address:")]
         public string address { get; set; }
         
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Registered Email:")]
         public string Email { get; set; }
-        [Display(Name = "Bundles")]
-        public int bundle { get; set; }
-        public Gutter gutter { get; set; }
+        [Display(Name = "Number of Bundles required:")]
+        public decimal bundle { get; set; }
+        [Display(Name = "Gutters")]
+        public List<Gutter> gutters { get; set; }
 
     }
 }

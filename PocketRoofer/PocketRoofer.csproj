@@ -210,9 +210,29 @@
     <Compile Include="Migrations\201704120110343_AddedSaveEstimate.Designer.cs">
       <DependentUpon>201704120110343_AddedSaveEstimate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704121349179_AddedEstimateDbSet.cs" />
+    <Compile Include="Migrations\201704121349179_AddedEstimateDbSet.Designer.cs">
+      <DependentUpon>201704121349179_AddedEstimateDbSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704121456492_AddApplicationDbContextToSaveEstimate.cs" />
+    <Compile Include="Migrations\201704121456492_AddApplicationDbContextToSaveEstimate.Designer.cs">
+      <DependentUpon>201704121456492_AddApplicationDbContextToSaveEstimate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704121507439_RearrangedSaveEstimate.cs" />
+    <Compile Include="Migrations\201704121507439_RearrangedSaveEstimate.Designer.cs">
+      <DependentUpon>201704121507439_RearrangedSaveEstimate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704121545525_ConnectedEstModelToDatabase.cs" />
+    <Compile Include="Migrations\201704121545525_ConnectedEstModelToDatabase.Designer.cs">
+      <DependentUpon>201704121545525_ConnectedEstModelToDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704131755478_AddedActionlink.cs" />
+    <Compile Include="Migrations\201704131755478_AddedActionlink.Designer.cs">
+      <DependentUpon>201704131755478_AddedActionlink.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\EstimateViewModels.cs" />
+    <Compile Include="Models\EstimateViewModel.cs" />
     <Compile Include="Models\Gutter.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -277,10 +297,10 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\RegisteredUser.cshtml" />
-    <Content Include="Views\Home\Admin.cshtml" />
-    <Content Include="Views\Home\GenerateEstimate.cshtml" />
     <Content Include="Views\Home\Sent.cshtml" />
     <Content Include="Views\Estimate\SaveEstimate.cshtml" />
+    <Content Include="Views\Estimate\AdminIndex.cshtml" />
+    <Content Include="Views\Estimate\EstimateDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -320,6 +340,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704120110343_AddedSaveEstimate.resx">
       <DependentUpon>201704120110343_AddedSaveEstimate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704121349179_AddedEstimateDbSet.resx">
+      <DependentUpon>201704121349179_AddedEstimateDbSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704121456492_AddApplicationDbContextToSaveEstimate.resx">
+      <DependentUpon>201704121456492_AddApplicationDbContextToSaveEstimate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704121507439_RearrangedSaveEstimate.resx">
+      <DependentUpon>201704121507439_RearrangedSaveEstimate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704121545525_ConnectedEstModelToDatabase.resx">
+      <DependentUpon>201704121545525_ConnectedEstModelToDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704131755478_AddedActionlink.resx">
+      <DependentUpon>201704131755478_AddedActionlink.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

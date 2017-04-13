@@ -1,0 +1,20 @@
+﻿@model IEnumerable<PocketRoofer.Models.EstimateViewModel>
+
+@using PocketRoofer.Models;
+
+@{
+    ViewBag.Title = "AdminIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+<h2>AdminIndex</h2>
+    <ul>
+        @foreach (EstimateViewModel model in @Model)
+        {
+            <li>
+                @Html.ActionLink(model.address, "EstimateDetails", new { Id = model.Id })
+            </li>
+        }
+    </ul>
+</div>
+
