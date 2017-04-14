@@ -60,7 +60,7 @@
 @using (Html.BeginForm("SaveEstimate", "Estimate", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
 		<div id="form">
-			<input name="address" id="address" type="text" value="">
+			<input name="address" id="address" type="text" value="" autocomplete="on">
 			<input id="submit" type="button" value="Find Address">
 			<br/>
 			Length (ft): <input id="span-length-ft" class="calc-text-area" type="text" readonly>
@@ -79,15 +79,13 @@
 			</select>
 			Estimated Area (ft&sup2;): <input name ="adjustedArea" id="span-area-adjusted" class="calc-text-area" type="text"><br />
 			<input id="clear-points" class="buttons" type="button" value="Reset Measure Points" onClick="measureReset();">
-			<input id="gutter" type="button" value="Save Gutter">
+			<input id="saveGutter" type="submit" value="Save Gutter">
 			@*<input id="area" type="button" value="Save Area">*@
 			<input id="saveEstimate" type="submit" value="Save Estimate">
 		</div>
 }
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqnTzpohV4nNuiv-p8T6--y51y4tK52rc&libraries=geometry"></script>
-		<div id="map" style="width: 100%; height: 420px;">
-
-		</div>
+		<div name="mapPic" id="map" style="width: 100%; height: 420px;"></div>
 		<script>
 			var map;
 			var geocoder;

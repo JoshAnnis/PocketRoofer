@@ -20,34 +20,42 @@ namespace PocketRoofer.Controllers
             return View(models);
         }
 
-        public ActionResult EstimateDetails(int Id)
-        {
-            ApplicationDbContext pkr = new ApplicationDbContext();
-            EstimateViewModel models = pkr.Estimate.Single(est => est.Id == Id);
-            return View(models);
-        }
+        //public ActionResult EstimateDetails(int Id)
+        //{
+        //    ApplicationDbContext pkr = new ApplicationDbContext();
+        //    EstimateViewModel models = pkr.Estimate.Single(est => est.Id == Id);
+        //    return View(models);
+        //}
 
         // Post: Estimate
         [HttpPost]
         public ActionResult SaveEstimate()
         {
-            string address = Request.Form["address"].ToString();
-            decimal bundleArea = Convert.ToDecimal(Request.Form["adjustedArea"].ToString());
+            
+            try{
+                    string address = Request.Form["address"].ToString();
+                    decimal bundleArea = Convert.ToDecimal(Request.Form["adjustedArea"].ToString());
 
-            EstimateViewModel model = new EstimateViewModel();
-            model.address = address;
-            model.bundle = Convert.ToInt32(bundleArea /100 * 3);
-            model.Email = Convert.ToString(User.Identity.Name);
-            using (var pkr = new ApplicationDbContext())
+                    EstimateViewModel model = new EstimateViewModel();
+                    model.address = address;
+                    model.bundle = Convert.ToInt32(bundleArea / 100 * 3);
+                    model.Email = Convert.ToString(User.Identity.Name);
+                    using (var pkr = new ApplicationDbContext())
+                    {
+                        EstimateViewModel est = new EstimateViewModel();
+                        est.address = model.address;
+                        est.bundle = model.bundle;
+                        est.Email = model.Email;
+                        pkr.Estimate.Add(est);
+                        pkr.SaveChanges();
+                    }
+                    return View(model);
+                }
+            catch
             {
-                EstimateViewModel est = new EstimateViewModel();
-                est.address = model.address;
-                est.bundle = model.bundle;
-                est.Email = model.Email;
-                pkr.Estimate.Add(est);
-                pkr.SaveChanges();
+                return View("Error");
             }
-            return View(model);
+
         }
 
         // Post: Gutter

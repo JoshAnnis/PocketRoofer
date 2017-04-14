@@ -17,7 +17,7 @@
     <div class="jumbotron">
         <div class="row">
             <h1>PocketRoofer</h1>
-            <p class="lead"> These are your saved Estimates</p>
+            <p class="lead"> Here is your estimate</p>
         </div>
     </div>
     <div class="row">
@@ -39,5 +39,6 @@
                 @Html.TextBoxFor(m => m.bundle, new { @class = "form-control" })
             </div>
         </div>
+        @Html.ActionLink("Return to Estimates","AdminIndex")
     </div>
 </div>

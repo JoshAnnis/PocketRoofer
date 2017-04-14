@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using PocketRoofer.Models;
 
 namespace PocketRoofer.Controllers
 {
@@ -17,7 +18,9 @@ namespace PocketRoofer.Controllers
         {
             if (User.IsInRole("Admin"))
             {
-                return View("AdminIndex");
+                ApplicationDbContext pkr = new ApplicationDbContext();
+                List<EstimateViewModel> models = pkr.Estimate.ToList();
+                return View("AdminIndex",models);
             }
             else if (User.IsInRole("User"))
             {
@@ -27,6 +30,22 @@ namespace PocketRoofer.Controllers
             {
                 return View("Index");
             }
+        }
+
+        [HttpGet]
+        public ActionResult AdminIndex()
+        {
+            ApplicationDbContext pkr = new ApplicationDbContext();
+            List<EstimateViewModel> models = pkr.Estimate.ToList();
+            return View(models);
+        }
+
+        [HttpGet]
+        public ActionResult EstimateDetails(int Id)
+        {
+            ApplicationDbContext pkr = new ApplicationDbContext();
+            EstimateViewModel models = pkr.Estimate.Single(est => est.Id == Id);
+            return View(models);
         }
         public ActionResult GoHome()
         {

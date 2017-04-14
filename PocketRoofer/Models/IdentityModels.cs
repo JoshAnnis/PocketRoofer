@@ -30,5 +30,6 @@ namespace PocketRoofer.Models
             return new ApplicationDbContext();
         }
         public DbSet<EstimateViewModel> Estimate { get; set; }
+        public DbSet<MapModel> MapModel { get; set; }
     }
 }
